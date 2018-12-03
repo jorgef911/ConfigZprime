@@ -43,7 +43,7 @@ CosDphiPtAndMetCut	0.9  1.0
 DiscrByMetDphi false
 MetDphiCut 1.0 3.15
 
-DiscrByMetMt 	1
+DiscrByMetMt 	0
 MetMtCut 	30. 9999.
 
 ////////////////////////////////

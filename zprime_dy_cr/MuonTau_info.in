@@ -2,17 +2,18 @@
          Muon1Tau1
 #############################
 
-DiscrByDeltaR  1
-DeltaRCut      0.5 
+DiscrByDeltaR  	1
+DeltaRCut      	0.5 
 
-DiscrByOSLSType  OS
+DiscrByOSLSType	OS
 
-DiscrByCosDphi	 0
-CosDphiCut 	 -1.00   -0.95
+DiscrByCosDphi	0
+CosDphiCut	-1.00   -0.95
 
 DiscrByCosDphiPtAndMet1   1
 CosDphiPtAndMetCut1  0.9  1.0
 CosDphiPtAndMetCut2  0.9  1.0
+Muon_mT  9000.0 10000.0
 
 DiscrByMassReco  1
 HowCalculateMassReco VectorSumOfVisProductsAndMet     ###VectorSumOfVisProductsAndMet   or    CollinearApprox 
@@ -42,12 +43,10 @@ CosDphiCut 	 -1.00   -0.95
 DiscrByCosDphiPtAndMet1   1
 CosDphiPtAndMetCut1  0.9  1.0
 CosDphiPtAndMetCut2  0.9  1.0
-
-#DiscrByCosDphi_DeltaPtAndMet   false
-#CosDphi_DeltaPtMetCut  0.8  1.0
+Muon_mT  9000.0 10000.0
 
 DiscrByMassReco  1
-HowCalculateMassReco VectorSumOfVisProductsAndMet  #none or    CollinearApprox 
+HowCalculateMassReco VectorSumOfVisProductsAndMet     ###VectorSumOfVisProductsAndMet   or    CollinearApprox 
 MassCut          60.0   150.0
 
 DiscrByCDFzeta2D          0
@@ -68,13 +67,14 @@ DiscrByDeltaR  1
 DeltaRCut      0.5 
 
 DiscrByOSLSType  OS
-
 DiscrByCosDphi	 0
 CosDphiCut 	 -1.00   -0.95
 
 DiscrByCosDphiPtAndMet1   1
 CosDphiPtAndMetCut1  0.9  1.0
 CosDphiPtAndMetCut2  0.9  1.0
+Muon_mT  9000.0 10000.0
+
 #DiscrByCosDphi_DeltaPtAndMet   false
 #CosDphi_DeltaPtMetCut  0.8  1.0
 
@@ -106,11 +106,13 @@ CosDphiCut 	 -1.00   -0.95
 DiscrByCosDphiPtAndMet1   1
 CosDphiPtAndMetCut1  0.9  1.0
 CosDphiPtAndMetCut2  0.9  1.0
+Muon_mT  9000.0 10000.0
+
 #DiscrByCosDphi_DeltaPtAndMet   false
 #CosDphi_DeltaPtMetCut  0.8  1.0
 
 DiscrByMassReco  1
-HowCalculateMassReco VectorSumOfVisProductsAndMet     ###VectorSumOfVisProductsAndMet   or    CollinearApprox 
+HowCalculateMassReco none     ###VectorSumOfVisProductsAndMet   or    CollinearApprox 
 MassCut          60.0   150.0
 
 DiscrByCDFzeta2D          0

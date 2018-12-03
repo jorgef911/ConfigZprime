@@ -9,12 +9,12 @@ MCPUHistName pileup
 
 ApplyTauIDSF false
 
-isData 			false
+isData 			true
 ApplyZBoostSF 		false #???
-ApplyMuonSF 		true
-UsePileUpWeight 	true  # MC-true for pileup effic set to false on a 2nd run 11.08.17
-CalculatePUSystematics 	true
-ApplyGenWeight 		true
+ApplyMuonSF 		false
+UsePileUpWeight 	false  # MC-true for pileup effic set to false on a 2nd run 11.08.17
+CalculatePUSystematics 	false
+ApplyGenWeight 		false
 
 ///------Triggers-----///
 

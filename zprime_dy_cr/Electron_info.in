@@ -39,6 +39,9 @@ DoDiscrByHEEPID true
 
 DiscrIfIsZdecay 0
 
+DiscrByCosDphiPtAndMet        true
+CosDphiPtAndMetCut            0.9  1.0
+
 DiscrByMetDphi 0
 MetDphiCut 1.70 3.15
 
@@ -66,6 +69,9 @@ DoDiscrByHEEPID 0
 ///---MET TOPOLOGY CUTS---///
 
 DiscrIfIsZdecay 0
+
+DiscrByCosDphiPtAndMet        true
+CosDphiPtAndMetCut            0.9  1.0
 
 DiscrByMetDphi 0
 MetDphiCut 1.30 3.15
