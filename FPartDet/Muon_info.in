@@ -13,7 +13,7 @@ EnergyScaleOffset 1.
 EnergySigmaOffset 1.
 
 MatchToGen 0
-GenMatchingDeltaR 0.3
+GenMatchingDeltaR 0.5
 UseMotherID 0
 MotherID 23.0
 
@@ -26,24 +26,28 @@ MotherID 23.0
 EtaCut 2.1
 PtCut 35.0 9999.9
 
-DoDiscrByTightID 1
+DoDiscrByTightID true
 DoDiscrBySoftID 0
 
-DoDiscrByIsolation 1
-IsoSumPtCutValue 0.15 1.0
+DoDiscrByTrackDz true
+TrackDzCut 0.2
+DoDiscrByTrackDxy true
+TrackDxyCut 0.045
+
+DoDiscrByIsolation true
+IsoSumPtCutValue 0.0 0.15
 
 //----MET TOPOLOGY CUTS----//
 
-DiscrIfIsZdecay 0
+DiscrIfIsZdecay false
 
 DiscrByCosDphiPtAndMet	false
 CosDphiPtAndMetCut	0.9  1.0
 
-
 DiscrByMetDphi false
 MetDphiCut 1.0 3.15
 
-DiscrByMetMt 	1
+DiscrByMetMt 	false
 MetMtCut 	30. 9999.
 
 ////////////////////////////////

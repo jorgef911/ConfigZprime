@@ -136,9 +136,8 @@ Tau2MatchingDeltaR 0.3
 
 ApplyLooseID 1
 
-EtaCut 0.0 2.5
+EtaCut 0.0 2.4
 PtCut 30.0
-#DeltaPhi_Met 4.
 
 RemoveOverlapWithMuon1s 1
 RemoveOverlapWithMuon2s 1
@@ -156,7 +155,7 @@ Tau1MatchingDeltaR 0.3
 Tau2MatchingDeltaR 0.3
 
 ApplyJetBTagging 1
-JetBTaggingCut  0.5426 #loose 0.64
+JetBTaggingCut  0.5426 #loose 0.5426
 MatchBToGen     0
 UseBtagSF       0
 

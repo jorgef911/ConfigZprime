@@ -23,67 +23,70 @@
 
 
 FillRun 1
-Events        3   0.    3.
+Events        2   0.    2.
 NVertices   100   0.  100.
 
 //------------------------------------------------//
 
-FillGen 1
+FillGen 0
 
 NGenTau            20   0.       20.
 NGenHadTau         20   0.       20.
-GenTauEnergy      5000   0.     5000.
-GenTauPt          5000   0.     5000.
+NGenNu		   20.	0.	 20.
+GenTauEnergy      500   0.     5000.
+GenTauPt          500   0.     5000.
 GenTauEta          72  -3.6      +3.6
 GenTauPhi          36  -3.15     +3.15
-GenHadTauPt       5000   0.     5000.
+GenHadTauPt       100   0.     250.
+GenNuPt		  100 	0.     250.
+GenNuP		  100 	0.     250.
 GenHadTauEta       72  -3.6      +3.6
-//NGenMuon           20   0.       20.
-//GenMuonEnergy     200   0.      500.
-//GenMuonPt         200   0.      500.
-//GenMuonEta         72  -3.6      +3.6
-//GenMuonPhi         36  -3.15     +3.15
-GenDiTauMass      10000   0.    10000.
-
+NGenMuon           20   0.       20.
+GenMuonEnergy     200   0.      500.
+GenMuonPt         200   0.      500.
+GenMuonEta         72  -3.6      +3.6
+GenMuonPhi         36  -3.15     +3.15
+GenDiTauMass      100   0.    10000.
+GenHadTauFrac_scalar	  100	0.    1.
+GenHadTauFrac_vector	  100	0.    1.
+GenDeltaR		  100	0.    10.
+//GenHadTauFrac2	  100	0.    1.
+//GenHadTauFrac3	  100	0.    1.
 //////GenZprimeMass    100 0. 10000.      NOT IMPLIMENTED
 //////GenZprimeStatusCode     100 0. 100.
 //////GenTauStatusCode     100 0. 100.
 
 //------------------------------------------------//
 
-FillTau1 1
+FillTau1 0
 
 NTau1                    20   0.      20.
-Tau1Energy             5000   0.    5000.
-Tau1Pt                 5000   0.    5000.
+Tau1Energy             2000   0.    5000.
+Tau1Pt                 2000   0.    5000.
 Tau1Eta                 100  -5.0     +5.0
-FirstLeadingTau1Pt     5000   0.    5000.
+FirstLeadingTau1Pt     2000   0.    5000.
 FirstLeadingTau1Eta     144  -7.2     +7.2
-SecondLeadingTau1Pt     5000   0.    5000.
-SecondLeadingTau1Eta     144  -7.2     +7.2
 Tau1Phi                  36  -3.15    +3.15
 Tau1NumSignalTracks      10   0       10
-Tau1SeedTrackPt        5000   0.    5000.
+Tau1SeedTrackPt        2000   0.    5000.
 Tau1Charge               10  -5.       5.
 
-FillTau2 1
+FillTau2 0
 
 NTau2                    20   0.      20.
-Tau2Energy             5000   0.    5000.
-Tau2Pt                 5000   0.    5000.
+Tau2Energy             2000   0.    5000.
+Tau2Pt                 2000   0.    5000.
 Tau2Eta                 100  -5.0     +5.0
-FirstLeadingTau2Pt     5000   0.    5000.
+FirstLeadingTau2Pt     2000   0.    5000.
 FirstLeadingTau2Eta     144  -7.2     +7.2
-SecondLeadingTau2Pt     5000   0.    5000.
-SecondLeadingTau2Eta     144  -7.2     +7.2
 Tau2Phi                  36  -3.15    +3.15
 Tau2NumSignalTracks      10   0       10
-Tau2SeedTrackPt        5000   0.    5000.
+Tau2SeedTrackPt        2000   0.    5000.
 Tau2Charge               10  -5.       5.
 
 //------------------------------------------------//
 
-FillElectron1 0
+FillElectron1 1
 
 NElectron1                   20   0.      20.
 Electron1Energy            2000   0.    5000.
@@ -107,7 +110,7 @@ Electron2MetMt              100   0      500
 
 //------------------------------------------------//
 
-FillMuon1 0
+FillMuon1 1
 
 NMuon1                   20   0.      20.
 Muon1Energy            2000   0.    5000.
@@ -133,13 +136,13 @@ Muon2MetMt              100   0      500
 
 FillJet1 1
 
-NJet1         20   0.    20.
+ NJet1         20   0.    20.
 Jet1Energy   200   0.   500.
 Jet1Pt       200   0.   500.
 Jet1Eta      100  -5.0   +5.0
 Jet1Phi      144  -6.3   +6.3
 
-FillJet2 0
+FillJet2 1
 
 NJet2         20   0.    20.
 Jet2Energy   200   0.   500.
@@ -147,7 +150,7 @@ Jet2Pt       200   0.   500.
 Jet2Eta      100  -5.0   +5.0
 Jet2Phi      144  -6.3   +6.3
 
-FillBJet 1
+FillBJet 0
 
 NBJet         20   0.     20.
 BJetEnergy   200   0.    500.
@@ -162,7 +165,7 @@ CentralJetPt    200   0.   500.
 CentralJetEta   100  -5.0   +5.0
 
 
-FillWJet 1
+FillWJet 0
 
 NWJet      20   0.    20.
 WJetPt    200   0.   500.
@@ -177,14 +180,14 @@ WJettau2Overtau1   100  0   1
 
 FillMetCuts 1
 
-Met                1000  0  1000
+Met                100  0  1000
 MHT                500  0  5000
 HT                 500  0  5000
 Meff               500  0  5000
 
 //------------------------------------------------//
 
-FillLeadingJet 0
+FillLeadingJet 1
 
 FirstLeadingJetPt     200   0.   1000.
 SecondLeadingJetPt    200   0.   1000.
@@ -249,6 +252,10 @@ DiMuonPZetaVis                 100     0      100
 DiMuonZeta1D                   150  -300      300
 DiMuonNotReconstructableMass   600     0     1500
 DiMuonReconstructableMass      600     0     1500
+DiMuonSumOfPt                  1000    0     2000   
+DiMuonRecoil	    	       1000  -2000     0   
+DiMuonPositive_Recoil          1000    0     2000   
+
 
 Muon1PtVsMuon2Pt                 100  0  500     100     0    500
 DiMuonZeta2D                     100  0  100     200  -100    100
@@ -256,7 +263,7 @@ Muon1MetDeltaPhiVsDiMuonCosDphi   72  0   +3.15  220    -1.1    1.1
 
 //------------------------------------------------//
 
-FillDiTau 1
+FillDiTau 0
 
 DiTau_Tau1DiJetDeltaPhi          72     0    +3.15
 DiTau_Tau2DiJetDeltaPhi          72     0    +3.15
@@ -267,8 +274,6 @@ DiTau_Tau1MetMt                 100     0   500
 DiTau_Tau2MetMt                 100     0   500
 DiTauOSLS                        20   -10    10
 DiTauCosDphi                    220    -1.1   1.1
-DiTau_Tau1CosDphiPtandMet       220    -1.1   1.1
-DiTau_Tau2CosDphiPtandMet       220    -1.1   1.1
 DiTauCosDphi_DeltaPtAndMet      220    -1.1      1.1
 DiTau_Tau1MetDeltaPhi            72     0    +3.15
 DiTau_Tau2MetDeltaPhi            72     0    +3.15
@@ -276,17 +281,15 @@ DiTauPZeta                      200  -100   100
 DiTauPZetaVis                   100     0   100
 DiTauZeta1D                     150  -300   300
 DiTauNotReconstructableMass     200     0  5000
-DiTauReconstructableMass       5000     0  5000
-DiTauInvariantMass	       5000     0  5000
-DiTauSumOfPt		       5000     0  5000
-DiTauDiJetReconstructableMass   200     0  5000
+DiTauReconstructableMass        2500    0  5000
+DiTauDiJetReconstructableMass   200	0  5000
 Tau1MetDeltaPhiVsDiTauCosDphi    72     0    +3.15  220    -1.1   1.1
 DiTauZeta2D                     100     0   100     200  -100   100
 Tau1PtVsTau2Pt                  100     0   500     100     0   500
 
 //------------------------------------------------//
 
-FillMuon1Tau1 0
+FillMuon1Tau1 1
 
 Muon1Tau1_Tau1DiJetDeltaPhi           72     0       +3.15
 Muon1Tau1_Muon1DiJetDeltaPhi          72     0       +3.15
@@ -491,7 +494,7 @@ Electron2MetDeltaPhiVsElectron2Tau2CosDphi    72     0       +3.15   220    -1.1
 
 //------------------------------------------------//
 
-FillMuon1Electron1 0
+FillMuon1Electron1 1
 
 Muon1Electron1_Electron1DiJetDeltaPhi           72     0       +3.15
 Muon1Electron1_Muon1DiJetDeltaPhi          72     0       +3.15

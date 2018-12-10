@@ -58,7 +58,7 @@ GenDeltaR		  100	0.    10.
 
 //------------------------------------------------//
 
-FillTau1 1
+FillTau1 0
 
 NTau1                    20   0.      20.
 Tau1Energy             2000   0.    5000.
@@ -305,7 +305,7 @@ Muon1Tau1CosDphi_DeltaPtAndMet       220    -1.1      1.1
 Muon1Tau1_Muon1MetDeltaPhi            72     0       +3.15
 Muon1Tau1_Tau1MetDeltaPhi             72     0       +3.15
 Muon1Tau1NotReconstructableMass      600     60     150
-Muon1Tau1ReconstructableMass         40      100     900
+Muon1Tau1ReconstructableMass         40     100     900
 Muon1Tau1PZeta                       200  -100      100
 Muon1Tau1PZetaVis                    100     0      100
 Muon1Tau1Zeta1D                      150  -300      300
