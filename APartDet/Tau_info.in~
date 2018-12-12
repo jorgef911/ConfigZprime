@@ -13,7 +13,7 @@ EnergyScaleOffset 1.
 EnergySigmaOffset 1.
 
 MatchToGen 0
-GenMatchingDeltaR 0.4
+GenMatchingDeltaR 0.1
 
 TauSF 0
 //////////////////////////////
@@ -26,18 +26,14 @@ EtaCut 2.1
 PtCut 20.0 9999.9
 
 DoDiscrByLeadTrack false
-LeadTrackThreshold 5.0
+LeadTrackThreshold 3.0
 
-DoDiscrByLeadTrackDz true
-LeadTrackDzCut 0.2
-
-DoDiscrByIsolation false
+DoDiscrByIsolation true
 DiscrByMinIsolation ZERO
-DiscrByMaxIsolation byVLooseIsolationMVArun2v1DBnewDMwLT
+///DiscrByMaxIsolation byVLooseIsolationMVArun2v1DBnewDMwLT
 DiscrByMaxIsolation byTightIsolationMVArun2v1DBnewDMwLT
-DoRejectIsolationWP true
 DiscrByRejectionIsolation ZERO
-DiscrByRejectionIsolation byTightIsolationMVArun2v1DBnewDMwLT
+///DiscrByRejectionIsolation byTightIsolationMVArun2v1DBnewDMwLT
 
 DiscrByProngType true
 ProngType 1or3hps
@@ -50,19 +46,22 @@ DoDiscrAgainstMuon true
 DiscrAgainstMuon againstMuonTight3
 SelectTausThatAreMuons false
 
-DoDiscrByCrackCut true
+DoDiscrByCrackCut false
 
 RemoveOverlapWithMuon1s true
 RemoveOverlapWithMuon2s true
 Muon1MatchingDeltaR 0.3
 Muon2MatchingDeltaR 0.3
 
-RemoveOverlapWithElectron1s true
-RemoveOverlapWithElectron2s true
+RemoveOverlapWithElectron1s false
+RemoveOverlapWithElectron2s false
 Electron1MatchingDeltaR 0.3
 Electron2MatchingDeltaR 0.3
 
 ///---MET TOPOLOGY CUTS---//
+
+DiscrByCosDphiPtAndMet        false
+CosDphiPtAndMetCut            0.9  1.0
 
 DiscrByMetDphi false
 MetDphiCut 0.9 3.15
@@ -82,16 +81,18 @@ PtCut 20.0 9999.9
 DoDiscrByLeadTrack 0
 LeadTrackThreshold 5.0
 
+
 DoDiscrByIsolation true
 DiscrByMinIsolation ZERO
-DiscrByMaxIsolation byVLooseIsolationMVArun2v1DBnewDMwLT
-///DiscrByMaxIsolation byTightIsolationMVArun2v1DBnewDMwLT
+///DiscrByMaxIsolation byVLooseIsolationMVArun2v1DBnewDMwLT
+DiscrByMaxIsolation byTightIsolationMVArun2v1DBnewDMwLT
 
-///DiscrByRejectionIsolation ZERO
-DiscrByRejectionIsolation byTightIsolationMVArun2v1DBnewDMwLT
+DiscrByRejectionIsolation ZERO
+///DiscrByRejectionIsolation byTightIsolationMVArun2v1DBnewDMwLT
+
 
 DiscrByProngType true
-ProngType 1or3hps
+ProngType 1hps
 
 DoDiscrAgainstElectron true
 DiscrAgainstElectron againstElectronMVALooseMVA6
@@ -101,7 +102,7 @@ DoDiscrAgainstMuon true
 DiscrAgainstMuon againstMuonTight3
 SelectTausThatAreMuons 0
 
-DoDiscrByCrackCut true
+DoDiscrByCrackCut false
 
 RemoveOverlapWithMuon1s true
 RemoveOverlapWithMuon2s true

@@ -1,4 +1,4 @@
-//////////////////////////////////
+/////////////////////////////////
             Smear
 /////////////////////////////////
 
@@ -13,7 +13,7 @@ EnergyScaleOffset 1.
 EnergySigmaOffset 1.
 
 MatchToGen 0
-GenMatchingDeltaR 0.5
+GenMatchingDeltaR 0.3
 UseMotherID 0
 MotherID 23.0
 
@@ -26,29 +26,21 @@ MotherID 23.0
 EtaCut 2.1
 PtCut 35.0 9999.9
 
-DoDiscrByTightID true
+DoDiscrByTightID 1
 DoDiscrBySoftID 0
 
-DoDiscrByTrackDz true
-TrackDzCut 0.2
-DoDiscrByTrackDxy true
-TrackDxyCut 0.045
-
-DoDiscrByIsolation true
+DoDiscrByIsolation 1
 IsoSumPtCutValue 0.0 0.15
 
 //----MET TOPOLOGY CUTS----//
 
-DiscrIfIsZdecay false
+DiscrIfIsZdecay 0
 
-DiscrByCosDphiPtAndMet	false
-CosDphiPtAndMetCut	0.9  1.0
-
-DiscrByMetDphi false
+DiscrByMetDphi 0
 MetDphiCut 1.0 3.15
 
-DiscrByMetMt 	false
-MetMtCut 	30. 9999.
+DiscrByMetMt 1
+MetMtCut 150. 9999.
 
 ////////////////////////////////
              Muon2
@@ -59,26 +51,18 @@ MetMtCut 	30. 9999.
 EtaCut 2.1
 PtCut 35.0 9999.9
 
-DoDiscrByTightID true
+DoDiscrByTightID 1
 DoDiscrBySoftID 0
 
-DoDiscrByTrackDz true
-TrackDzCut 0.2
-DoDiscrByTrackDxy true
-TrackDxyCut 0.045
-
-DoDiscrByIsolation true
+DoDiscrByIsolation 1
 IsoSumPtCutValue 0.0 0.15
 
 //----MET TOPOLOGY CUTS----//
 
-DiscrIfIsZdecay false
+DiscrIfIsZdecay 0
 
-DiscrByCosDphiPtAndMet	false
-CosDphiPtAndMetCut	0.9  1.0
-
-DiscrByMetDphi false
+DiscrByMetDphi 0
 MetDphiCut 1.30 3.15
 
 DiscrByMetMt 1
-MetMtCut 30. 9999.
+MetMtCut 150. 9999.

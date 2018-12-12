@@ -10,15 +10,18 @@ MCPUHistName pileup
 ApplyTauIDSF false
 
 isData 			true
-ApplyZBoostSF 		fasle
+ApplyZBoostSF 		false #???
+ApplyMuonSF 		false
 UsePileUpWeight 	false  # MC-true for pileup effic set to false on a 2nd run 11.08.17
 CalculatePUSystematics 	false
 ApplyGenWeight 		false
 
 ///------Triggers-----///
 
-Trigger1FirstRequirement HLT_IsoMu24_
-Trigger1SecondRequirement HLT_IsoMu24_ 
+Trigger1FirstRequirement HLT_IsoMu24_v
+Trigger1SecondRequirement HLT_IsoMu24_v
+Trigger2FirstRequirement HLT_IsoMu24_v
+Trigger2SecondRequirement HLT_IsoMu24_v
 
 ///Trigger2FirstRequirement HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v
 ///Trigger2SecondRequirement HLT_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg_v
@@ -31,7 +34,7 @@ TreatMuonsAsTaus 0
 ///-----MET cuts------///
 
 DiscrByMet true
-MetCut 30.0 10000.0
+MetCut 0.0 30000.0 #10000.0
 
 DiscrByMHT false
 MhtCut 50.0
@@ -40,6 +43,6 @@ HtCut 30.0
 
 JetPtForMhtAndHt 30.0        
 JetEtaForMhtAndHt 5.0        
-ApplyJetLooseIDforMhtAndHt true
+ApplyJetLooseIDforMhtAndHt false
 
 
