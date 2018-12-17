@@ -1195,6 +1195,7 @@ void Analyzer::getGoodRecoLeptons(const Lepton& lep, const CUTS ePos, const CUTS
         double firstIso = (stats.pmap.find("IsoSumPtCutValue") != stats.pmap.end()) ? stats.pmap.at("IsoSumPtCutValue").first : ival(ePos) - ival(CUTS::eRTau1) + 1;
         double secondIso = (stats.pmap.find("IsoSumPtCutValue") != stats.pmap.end()) ? stats.pmap.at("IsoSumPtCutValue").second : 0;
         passCuts = passCuts && lep.get_Iso(i, firstIso, secondIso);
+        if( lep.type == PType::Tau ) passCuts = passCuts && lep.reject_Iso(i, firstIso, secondIso);
       }
 
       else if(cut == "DiscrIfIsZdecay" && lep.type != PType::Tau ) passCuts = passCuts && isZdecay(lvec, lep);
@@ -1229,12 +1230,6 @@ void Analyzer::getGoodRecoLeptons(const Lepton& lep, const CUTS ePos, const CUTS
           passCuts = passCuts && (stats.smap.at("ProngType").find("hps") == string::npos || _Tau->decayModeFindingNewDMs->at(i) != 0);
           passCuts = passCuts && passProng(stats.smap.at("ProngType"), _Tau->nProngs->at(i));
         }
-//        else if(cut == "DoRejectIsolationWP"){
-//          double firstIso = (stats.pmap.find("IsoSumPtCutValue") != stats.pmap.end()) ? stats.pmap.at("IsoSumPtCutValue").first : ival(ePos) - ival(CUTS::eRTau1) + 1;
-//          double secondIso = (stats.pmap.find("IsoSumPtCutValue") != stats.pmap.end()) ? stats.pmap.at("IsoSumPtCutValue").second : 0;
-//          passCuts = passCuts && _Tau->reject_Iso(i, firstIso, secondIso);
-          //      cout << "aqui pasa Tight " << endl;
-//        }
 
 
         else if(cut == "decayModeFindingNewDMs") passCuts = passCuts && _Tau->decayModeFindingNewDMs->at(i) != 0;

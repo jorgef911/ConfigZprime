@@ -195,6 +195,7 @@ public:
 
 
   virtual bool get_Iso(int, double, double) const {return false;}
+  virtual bool reject_Iso(int, double, double) const {return false;}
 };
 
 class Electron : public Lepton {
@@ -242,6 +243,7 @@ public:
   bool get_Iso(int, double, double) const;
   bool pass_against_Elec(CUTS, int);
   bool pass_against_Muon(CUTS, int);
+  bool reject_Iso(int, double, double);
 
   vector<int>     *decayModeFindingNewDMs = 0;
   vector<int>     *decayModeFinding = 0;
@@ -251,6 +253,7 @@ public:
   pair<vector<int>*,vector<int>* > againstMuon = make_pair(nullptr,nullptr);
   pair<vector<int>*,vector<int>* > minIso = make_pair(nullptr,nullptr);
   pair<vector<int>*,vector<int>* > maxIso = make_pair(nullptr,nullptr);
+  pair<vector<int>*,vector<int>* > rejIso = make_pair(nullptr,nullptr);
   vector<double>  *leadChargedCandPt = 0;
   vector<double>  *leadChargedCandPtError = 0;
   vector<double>  *leadChargedCandValidHits = 0;
