@@ -59,10 +59,15 @@ MetMtCut 	30. 9999.
 EtaCut 2.1
 PtCut 35.0 9999.9
 
-DoDiscrByTightID 1
+DoDiscrByTightID true
 DoDiscrBySoftID 0
 
-DoDiscrByIsolation 1
+DoDiscrByTrackDz true
+TrackDzCut 0.2
+DoDiscrByTrackDxy true
+TrackDxyCut 0.045
+
+DoDiscrByIsolation true
 IsoSumPtCutValue 0.0 0.15
 
 //----MET TOPOLOGY CUTS----//
@@ -75,5 +80,5 @@ CosDphiPtAndMetCut	0.9  1.0
 DiscrByMetDphi false
 MetDphiCut 1.30 3.15
 
-DiscrByMetMt 1
+DiscrByMetMt false
 MetMtCut 30. 9999.

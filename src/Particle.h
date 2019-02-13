@@ -243,7 +243,7 @@ public:
   bool get_Iso(int, double, double) const;
   bool pass_against_Elec(CUTS, int);
   bool pass_against_Muon(CUTS, int);
-  bool reject_Iso(int, double, double);
+  bool reject_Iso(int, double, double) const;
 
   vector<int>     *decayModeFindingNewDMs = 0;
   vector<int>     *decayModeFinding = 0;

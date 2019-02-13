@@ -418,7 +418,6 @@ Taus::Taus(TTree* _BOOM, string filename, vector<string> syst_names) : Lepton(_B
   ////Muon discrimination
   string_tau1 = pstats["Tau1"].smap["DiscrAgainstMuon"];
   string_tau2 = pstats["Tau2"].smap["DiscrAgainstMuon"];
-
   SetBranch(("Tau_" + string_tau1).c_str(), againstMuon.first);
   if(string_tau1 != string_tau2) {
     SetBranch(("Tau_" + string_tau2).c_str(), againstMuon.second);
@@ -435,15 +434,34 @@ Taus::Taus(TTree* _BOOM, string filename, vector<string> syst_names) : Lepton(_B
     maxIso.second = maxIso.first;
   }
 
+  string_tau1 = pstats["Tau1"].smap["DiscrByRejectionIsolation"];
+  string_tau2 = pstats["Tau2"].smap["DiscrByRejectionIsolation"];
+  SetBranch(("Tau_" + string_tau1).c_str(), rejIso.first);
+  if(string_tau1 != string_tau2) {
+    SetBranch(("Tau_" + string_tau2).c_str(), rejIso.second);
+  } else {
+    rejIso.second = rejIso.first;
+  }
+/*
+  if(string_tau1 != "ZERO" && string_tau1 != pstats["Tau1"].smap["DiscrByMaxIsolation"]) {
+  SetBranch(("Tau_" + string_tau1).c_str(), rejIso.first);
+  }
+
+  if(string_tau2 != "ZERO" && string_tau1 != string_tau2 && string_tau2 != pstats["Tau2"].smap["DiscrByMaxIsolation"]) {
+     SetBranch(("Tau_" + string_tau2).c_str(), rejIso.second);
+  } 
+  else rejIso.second = rejIso.first;
+*/
+
   string_tau1 = pstats["Tau1"].smap["DiscrByMinIsolation"];
   string_tau2 = pstats["Tau2"].smap["DiscrByMinIsolation"];
   if(string_tau1 != "ZERO") {
-    SetBranch(("Tau_" + string_tau1).c_str(), maxIso.first);
+    SetBranch(("Tau_" + string_tau1).c_str(), minIso.first);
   }
   if(string_tau2 != "ZERO" && string_tau1 != string_tau2) {
-    SetBranch(("Tau_"+ string_tau2).c_str(), maxIso.second);
+    SetBranch(("Tau_"+ string_tau2).c_str(), minIso.second);
   } else {
-    maxIso.second = maxIso.first;
+    minIso.second = minIso.first;
   }
 
   SetBranch("Tau_decayModeFinding", decayModeFinding);
@@ -452,7 +470,7 @@ Taus::Taus(TTree* _BOOM, string filename, vector<string> syst_names) : Lepton(_B
   SetBranch("Tau_decayMode", decayMode);
   SetBranch("Tau_leadChargedCandPt", leadChargedCandPt);
   SetBranch("Tau_leadChargedCandTrack_ptError", leadChargedCandPtError);
-  SetBranch("Tau_leadChargedCandValidHits", leadChargedCandValidHits);
+SetBranch("Tau_leadChargedCandValidHits", leadChargedCandValidHits);
 
 }
 
@@ -473,12 +491,20 @@ vector<CUTS> Taus::findExtraCuts() {
   return return_vec;
 }
 
+
 bool Taus::get_Iso(int index, double onetwo, double max) const {
   double maxIsoval = (onetwo == 1) ? maxIso.first->at(index) : maxIso.second->at(index);
   vector<int>* minIsotmp = (onetwo == 1) ? minIso.first : minIso.second;
   double minIsoval = (minIsotmp != 0) ? minIsotmp->at(index) : true;
   return (maxIsoval > 0.5 && minIsoval > 0.5);
 }
+
+bool Taus::reject_Iso(int index, double onetwo, double max) const {
+vector<int>* Isotmp = (onetwo == 1) ? rejIso.first : rejIso.second;
+double Isoval = (Isotmp != 0) ? Isotmp->at(index) : false;
+return (Isoval < 0.5);     
+} 
+
 
 bool Taus::pass_against_Elec(CUTS ePos, int index) {
   return (ePos == CUTS::eRTau1) ? againstElectron.first->at(index) : againstElectron.second->at(index);
@@ -487,13 +513,4 @@ bool Taus::pass_against_Elec(CUTS ePos, int index) {
 bool Taus::pass_against_Muon(CUTS ePos, int index) {
   return (ePos == CUTS::eRTau1) ? againstMuon.first->at(index) : againstMuon.second->at(index);
 }
-bool Taus::reject_Iso(int index, double onetwo, double max) {
-  double maxIsoval = (onetwo == 1) ?  rejIso.first->at(index) : rejIso.second->at(index);
-  bool rejected;
-  if(maxIsoval < 0.5){
-      rejected = true;
-    }else{
-      rejected = false;
-    }
-  return (rejected);
-}
+
