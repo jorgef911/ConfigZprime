@@ -28,7 +28,7 @@ NGenHiggs	0  -1
 NGenTau		0  -1
 
 ***NRecoVertex        		1   -1
-***NRecoTriggers1     		1   -1   ///only 0-MC  1-Data
+***NRecoTriggers1     		0   -1   ///only 0-MC  1-Data
 ***NRecoMuon1	      		1    1
 ***NRecoTau1	      		1    1
 ***NRecoBJet	      	   	0    0
