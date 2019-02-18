@@ -29,13 +29,13 @@ NGenTau		0  -1
 
 ***NRecoVertex        		1   -1
 ***NRecoTriggers1     		0   -1   ///only 0-MC  1-Data
+***NDiMuonCombinations          0    0
 ***NRecoMuon1	      		1    1
 ***NRecoTau1	      		1    1
+***NRecoElectron1               0    0
 ***NRecoBJet	      	   	0    0
+***METCut                       1   -1
 ***NMuon1Tau1Combinations	1    1
-***METCut		      	1   -1
-***NRecoElectron1        	0    0
-***NDiMuonCombinations	   	0    0
 
 
 NRecoTriggers2	      0   -1           ///only 0 or 1
