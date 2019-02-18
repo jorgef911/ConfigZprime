@@ -78,7 +78,6 @@ Analyzer::Analyzer(vector<string> infiles, string outfile, bool setCR, string co
   cout << "setup start" << endl;
 
   BOOM= new TChain("TNT/BOOM");
-  infoFile=0;
 
   for( string infile: infiles){
     BOOM->AddFile(infile.c_str());
@@ -88,6 +87,11 @@ Analyzer::Analyzer(vector<string> infiles, string outfile, bool setCR, string co
   nentries = (int) BOOM->GetEntries();
   BOOM->SetBranchStatus("*", 0);
   std::cout << "TOTAL EVENTS: " << nentries << std::endl;
+/*
+  SetBranch("eventNumber", EventNumber);
+  SetBranch("runNumber", RunNumber);
+  SetBranch("lumiBlock", LumiNumber);
+*/
 
   srand(0);
 
@@ -201,10 +205,11 @@ Analyzer::Analyzer(vector<string> infiles, string outfile, bool setCR, string co
   // check if we need to make gen level cuts to cross clean the samples:
 
   isVSample = false;
+  //  cout << "--?--" << endl;
   if(infiles[0].find("DY") != string::npos){
     isVSample = true;
+    //    cout << "check file name" << endl;
     if(infiles[0].find("DYJetsToLL_M-50_HT-") != string::npos){
-      //gen_selection["DY_noMass_gt_100"]=true;
       gen_selection["DY_noMass_gt_200"]=true;
     //get the DY1Jet DY2Jet ...
     }else if(infiles[0].find("JetsToLL_TuneCUETP8M1_13TeV") != string::npos){
@@ -213,7 +218,11 @@ Analyzer::Analyzer(vector<string> infiles, string outfile, bool setCR, string co
       //set it to false!!
       gen_selection["DY_noMass_gt_200"]=false;
     }
+    //DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8
+
     if(infiles[0].find("DYJetsToLL_M-50_TuneCUETP8M1_13TeV") != string::npos){
+      //if(infiles[0].find("DYJetsToLL_M-50") != string::npos){
+      //      cout << "PASS name selection" << endl;
       gen_selection["DY_noMass_gt_200"]=true;
     }else{
       //set it to false!!
@@ -1207,6 +1216,9 @@ void Analyzer::getGoodRecoLeptons(const Lepton& lep, const CUTS ePos, const CUTS
       else if(lep.type == PType::Muon){
         if(cut == "DoDiscrByTightID") passCuts = passCuts && _Muon->tight->at(i);
         else if(cut == "DoDiscrBySoftID") passCuts = passCuts && _Muon->soft->at(i);
+else if(cut == "DoDiscrByTrackDz") passCuts = passCuts && (abs(_Muon->dz_pv->at(i)) <= stats.dmap.at("TrackDzCut"));
+        else if(cut == "DoDiscrByTrackDxy") passCuts = passCuts && (abs(_Muon->dxy_pv->at(i)) <= stats.dmap.at("TrackDxyCut"));
+
       }
       ////electron cuts
       else if(lep.type == PType::Electron){
@@ -1220,7 +1232,9 @@ void Analyzer::getGoodRecoLeptons(const Lepton& lep, const CUTS ePos, const CUTS
         if(cut == "DoDiscrByCrackCut") passCuts = passCuts && !isInTheCracks(lvec.Eta());
         /////tau cuts
         else if(cut == "DoDiscrByLeadTrack") passCuts = passCuts && (_Tau->leadChargedCandPt->at(i) >= stats.dmap.at("LeadTrackThreshold"));
+	else if(cut == "DoDiscrByLeadTrackDz") passCuts = passCuts && (abs(_Tau->leadChargedCandDz_pv->at(i)) <= stats.dmap.at("LeadTrackDzCut"));
              // ----Electron and Muon vetos
+
         else if (cut == "DoDiscrAgainstElectron") passCuts = passCuts && _Tau->pass_against_Elec(ePos, i);
         else if (cut == "SelectTausThatAreElectrons") passCuts = passCuts && !_Tau->pass_against_Elec(ePos, i);
 

@@ -386,6 +386,8 @@ Muon::Muon(TTree* _BOOM, string filename, vector<string> syst_names) : Lepton(_B
     SetBranch("Muon_isoPhoton", isoPhoton);
     SetBranch("Muon_isoPU", isoPU);
   }
+  SetBranch("Muon_dz_pv", dz_pv);
+  SetBranch("Muon_dxy_pv", dxy_pv);
 }
 
 bool Muon::get_Iso(int index, double min, double max) const {
@@ -469,6 +471,7 @@ Taus::Taus(TTree* _BOOM, string filename, vector<string> syst_names) : Lepton(_B
   SetBranch("Tau_nProngs", nProngs);
   SetBranch("Tau_decayMode", decayMode);
   SetBranch("Tau_leadChargedCandPt", leadChargedCandPt);
+  SetBranch("Tau_leadChargedCandDz_pv", leadChargedCandDz_pv);
   SetBranch("Tau_leadChargedCandTrack_ptError", leadChargedCandPtError);
 SetBranch("Tau_leadChargedCandValidHits", leadChargedCandValidHits);
 

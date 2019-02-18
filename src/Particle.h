@@ -231,6 +231,8 @@ public:
   vector<double>* isoNeutralHadron = 0;
   vector<double>* isoPhoton = 0;
   vector<double>* isoPU = 0;
+  vector<double>  *dz_pv = 0;
+  vector<double>  *dxy_pv = 0;
 };
 
 class Taus : public Lepton {
@@ -255,6 +257,7 @@ public:
   pair<vector<int>*,vector<int>* > maxIso = make_pair(nullptr,nullptr);
   pair<vector<int>*,vector<int>* > rejIso = make_pair(nullptr,nullptr);
   vector<double>  *leadChargedCandPt = 0;
+  vector<double>  *leadChargedCandDz_pv = 0;
   vector<double>  *leadChargedCandPtError = 0;
   vector<double>  *leadChargedCandValidHits = 0;
 };
