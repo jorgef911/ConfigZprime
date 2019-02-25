@@ -15,7 +15,7 @@ EnergySigmaOffset 1.
 MatchToGen 0
 GenMatchingDeltaR 0.4
 
-TauSF 0
+TauSF 1
 //////////////////////////////
             Tau1
 ////////////////////////////
@@ -28,11 +28,19 @@ PtCut 20.0 9999.9
 DoDiscrByLeadTrack false
 LeadTrackThreshold 5.0
 
-DoDiscrByIsolation true
+DoDiscrByLeadTrackDz true
+LeadTrackDzCut 0.2
+
+DoDiscrByIsolation 0
 DiscrByMinIsolation ZERO
-DiscrByMaxIsolation byVLooseIsolationMVArun2v1DBnewDMwLT
+///DiscrByMaxIsolation byLooseIsolationMVArun2v1DBnewDMwLT
+///DiscrByMaxIsolation byMediumIsolationMVArun2v1DBnewDMwLT
 ///DiscrByMaxIsolation byTightIsolationMVArun2v1DBnewDMwLT
+
+DoRejectIsolationWP 1
 ///DiscrByRejectionIsolation ZERO
+///DiscrByRejectionIsolation byLooseIsolationMVArun2v1DBnewDMwLT
+///DiscrByRejectionIsolation byMediumIsolationMVArun2v1DBnewDMwLT
 DiscrByRejectionIsolation byTightIsolationMVArun2v1DBnewDMwLT
 
 DiscrByProngType true
@@ -69,7 +77,6 @@ MetMtCut 	150.0  10000.0
 /////////////////////////////
              Tau2
 //////////////////////////////
-
 //----RECO CUTS----////
 
 EtaCut 2.1
@@ -78,15 +85,20 @@ PtCut 20.0 9999.9
 DoDiscrByLeadTrack 0
 LeadTrackThreshold 5.0
 
+DoDiscrByLeadTrackDz true
+LeadTrackDzCut 0.2
 
-DoDiscrByIsolation true
+DoDiscrByIsolation 1
 DiscrByMinIsolation ZERO
-///DiscrByMaxIsolation byVLooseIsolationMVArun2v1DBnewDMwLT
-DiscrByMaxIsolation byTightIsolationMVArun2v1DBnewDMwLT
+///DiscrByMaxIsolation byLooseIsolationMVArun2v1DBnewDMwLT
+///DiscrByMaxIsolation byMediumIsolationMVArun2v1DBnewDMwLT
+DiscrByMaxIsolation byVTightIsolationMVArun2v1DBnewDMwLT
 
-DiscrByRejectionIsolation ZERO
+DoRejectIsolationWP 0
+///DiscrByRejectionIsolation ZERO
+///DiscrByRejectionIsolation byLooseIsolationMVArun2v1DBnewDMwLT
+///DiscrByRejectionIsolation byMediumIsolationMVArun2v1DBnewDMwLT
 ///DiscrByRejectionIsolation byTightIsolationMVArun2v1DBnewDMwLT
-
 
 DiscrByProngType true
 ProngType 1or3hps

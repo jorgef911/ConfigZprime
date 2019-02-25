@@ -58,7 +58,7 @@ GenDeltaR		  100	0.    10.
 
 //------------------------------------------------//
 
-FillTau1 0
+FillTau1 1
 
 NTau1                    20   0.      20.
 Tau1Energy             2000   0.    5000.
@@ -71,7 +71,7 @@ Tau1NumSignalTracks      10   0       10
 Tau1SeedTrackPt        2000   0.    5000.
 Tau1Charge               10  -5.       5.
 
-FillTau2 0
+FillTau2 1
 
 NTau2                    20   0.      20.
 Tau2Energy             2000   0.    5000.
@@ -231,7 +231,7 @@ LargestMassDiJetDeltaEta     200   0    10.
 
 //------------------------------------------------//
 
-FillDiMuon 0
+FillDiMuon 1
 
 DiMuon_Muon1DiJetDeltaPhi       72     0       +3.15
 DiMuon_Muon2DiJetDeltaPhi       72     0       +3.15
@@ -315,7 +315,7 @@ Muon1PtVsTau1Pt                      100     0      500      100     0     500
 Muon1Tau1Zeta2D                      100     0      100      200  -100     100
 Muon1MetDeltaPhiVsMuon1Tau1CosDphi    72     0       +3.15   220    -1.1     1.1
 
-FillMuon1Tau2 0
+FillMuon1Tau2 1
 
 Muon1Tau2_Tau2DiJetDeltaPhi           72     0       +3.15
 Muon1Tau2_Muon1DiJetDeltaPhi          72     0       +3.15
@@ -340,7 +340,7 @@ Muon1PtVsTau2Pt                      100     0      500      100     0     500
 Muon1Tau2Zeta2D                      100     0      100      200  -100     100
 Muon1MetDeltaPhiVsMuon1Tau2CosDphi    72     0       +3.15   220    -1.1     1.1
 
-FillMuon2Tau1 0
+FillMuon2Tau1 1
 
 Muon2Tau1_Tau1DiJetDeltaPhi           72     0       +3.15
 Muon2Tau1_Muon2DiJetDeltaPhi          72     0       +3.15
@@ -366,7 +366,7 @@ Muon2Tau1Zeta2D                      100     0      100      200  -100     100
 Muon2MetDeltaPhiVsMuon2Tau1CosDphi    72     0       +3.15   220    -1.1     1.1
 
 
-FillMuon2Tau2 0
+FillMuon2Tau2 1
 
 Muon2Tau2_Tau2DiJetDeltaPhi           72     0       +3.15
 Muon2Tau2_Muon2DiJetDeltaPhi          72     0       +3.15
