@@ -82,6 +82,8 @@ private:
   void getInputs();
   void setupJob(string);
   void initializePileupInfo(string, string, string, string);
+  void initializeTau(string Histo, string HTFolder);
+  void treatMuons_asTaus(const Lepton& lep, const CUTS ePos, const PartStats& stats, int syst);
   void read_info(string);
   void setupGeneral();
   void initializeTrigger();
@@ -128,7 +130,7 @@ private:
   void create_fillInfo();
 
   double getZBoostWeight();
-
+  double getTauWeight();
 
   inline bool passCutRange(string, double, const PartStats&);
   bool passCutRange(double, const pair<double, double>&);
@@ -150,6 +152,22 @@ private:
   string filespace = "";
   double hPU[100];
   int version=0;
+
+string HTFolder="";
+
+  TH1F *GenTauFractionR1;
+  TH1F *GenTauFractionR2;
+  TH1F *GenTauFractionR3;
+  TH1F *GenTauFractionR4;
+  TH1F *GenTauFractionR5;
+  TH1F *id_effi;
+  TH1F *match_effi;
+
+  TH1F *tau_eta;
+  TH1F *DeltaPhi;
+
+
+
 
   Generated* _Gen;
   Electron* _Electron;

@@ -58,6 +58,8 @@ public:
   TLorentzVector& p4(uint);
   TLorentzVector RecoP4(uint) const;
   TLorentzVector& RecoP4(uint);
+  void setP4(uint index, TLorentzVector &otherp4)const;
+  void setP4(uint index, TLorentzVector &otherp4);
 
   uint size() const;
   vector<TLorentzVector>::iterator begin();
@@ -226,6 +228,7 @@ public:
   bool get_Iso(int, double, double) const;
 
   vector<bool>* tight = 0;
+  vector<bool>* medium = 0;
   vector<bool>* soft = 0;
   vector<double>* isoCharged = 0;
   vector<double>* isoNeutralHadron = 0;

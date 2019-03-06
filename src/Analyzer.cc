@@ -74,24 +74,19 @@ const unordered_map<string, CUTS> Analyzer::cut_num = {
 //////////////////////////////////////////////////////
 
 ///Constructor
-Analyzer::Analyzer(vector<string> infiles, string outfile, bool setCR, string configFolder) : goodParts(getArray()), genName_regex(".*([A-Z][^[:space:]]+)") {
+Analyzer::Analyzer(vector<string> infiles, string outfile, bool setCR, string configFolder) : goodParts(getArray()), genName_regex(".*([A-Z][^[:space:]]+)"), GenTauFractionR1(new TH1F("GenTauFractionR1","GenTauFractionR1", 50, 0. , 2.)), GenTauFractionR2(new TH1F("GenTauFractionR2","GenTauFractionR2", 50, 0. , 2.)), GenTauFractionR3(new TH1F("GenTauFractionR3","GenTauFractionR3", 50, 0. , 2.)), GenTauFractionR4(new TH1F("GenTauFractionR4","GenTauFractionR4", 50, 0. , 2.)), GenTauFractionR5(new TH1F("GenTauFractionR5","GenTauFractionR5", 50, 0. , 2.)), id_effi(new TH1F("id_effi", "id_effi", 200, 0., 2000.)), match_effi(new TH1F("match_effi", "match_effi", 200, 0., 2000.)), tau_eta(new TH1F("tau_eta", "tau_eta", 100, -5.0, 5.0)), DeltaPhi(new TH1F("DeltaPhi", "DeltaPhi", 72, -3.6, 3.6)) {
   cout << "setup start" << endl;
 
   BOOM= new TChain("TNT/BOOM");
+  infoFile=0;
 
   for( string infile: infiles){
     BOOM->AddFile(infile.c_str());
   }
 
-
   nentries = (int) BOOM->GetEntries();
   BOOM->SetBranchStatus("*", 0);
   std::cout << "TOTAL EVENTS: " << nentries << std::endl;
-/*
-  SetBranch("eventNumber", EventNumber);
-  SetBranch("runNumber", RunNumber);
-  SetBranch("lumiBlock", LumiNumber);
-*/
 
   srand(0);
 
@@ -205,11 +200,10 @@ Analyzer::Analyzer(vector<string> infiles, string outfile, bool setCR, string co
   // check if we need to make gen level cuts to cross clean the samples:
 
   isVSample = false;
-  //  cout << "--?--" << endl;
   if(infiles[0].find("DY") != string::npos){
     isVSample = true;
-    //    cout << "check file name" << endl;
     if(infiles[0].find("DYJetsToLL_M-50_HT-") != string::npos){
+      //gen_selection["DY_noMass_gt_100"]=true;
       gen_selection["DY_noMass_gt_200"]=true;
     //get the DY1Jet DY2Jet ...
     }else if(infiles[0].find("JetsToLL_TuneCUETP8M1_13TeV") != string::npos){
@@ -218,11 +212,7 @@ Analyzer::Analyzer(vector<string> infiles, string outfile, bool setCR, string co
       //set it to false!!
       gen_selection["DY_noMass_gt_200"]=false;
     }
-    //DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8
-
     if(infiles[0].find("DYJetsToLL_M-50_TuneCUETP8M1_13TeV") != string::npos){
-      //if(infiles[0].find("DYJetsToLL_M-50") != string::npos){
-      //      cout << "PASS name selection" << endl;
       gen_selection["DY_noMass_gt_200"]=true;
     }else{
       //set it to false!!
@@ -237,6 +227,19 @@ Analyzer::Analyzer(vector<string> infiles, string outfile, bool setCR, string co
   if(infiles[0].find("WJets") != string::npos){
     isVSample = true;
   }
+
+  if(infiles[0].find("WJetsToLNu_HT-0To70") != string::npos) HTFolder = "WJetsToLNu_HT-0To70";
+  if(infiles[0].find("WJetsToLNu_HT-70To100") != string::npos) HTFolder = "WJetsToLNu_HT-70To100";
+  if(infiles[0].find("WJetsToLNu_HT-100To200") != string::npos) HTFolder = "WJetsToLNu_HT-100To200";
+  if(infiles[0].find("WJetsToLNu_HT-200To400") != string::npos) HTFolder = "WJetsToLNu_HT-200To400";
+  if(infiles[0].find("WJetsToLNu_HT-400To600") != string::npos) HTFolder = "WJetsToLNu_HT-400To600";
+  if(infiles[0].find("WJetsToLNu_HT-600To800") != string::npos) HTFolder = "WJetsToLNu_HT-600To800";
+  if(infiles[0].find("WJetsToLNu_HT-800To1200") != string::npos) HTFolder = "WJetsToLNu_HT-800To1200";
+  if(infiles[0].find("WJetsToLNu_HT-1200To2500") != string::npos) HTFolder = "WJetsToLNu_HT-1200To2500";
+  if(infiles[0].find("WJetsToLNu_HT-2500ToInf") != string::npos) HTFolder = "WJetsToLNu_HT-2500ToInf";
+
+  initializeTau(distats["Run"].smap.at("TauHistos"), HTFolder);
+
 
   for(auto iselect : gen_selection){
     if(iselect.second){
@@ -389,7 +392,9 @@ void Analyzer::clear_values() {
   }
   if(infoFile!=BOOM->GetFile()){
     cout<<"New file!"<<endl;
-    infoFile=BOOM->GetFile();
+     infoFile=BOOM->GetFile();
+
+
   }
   if(version==1 && infoFile!=BOOM->GetFile()){
     cout<<"New file! Will get the trigger info."<<endl;
@@ -454,6 +459,7 @@ void Analyzer::preprocess(int event) {
     for( auto part: allParticles) part->setCurrentP(i);
     _MET->setCurrentP(i);
     getGoodParticles(i);
+    treatMuons_asTaus(*_Muon, CUTS::eRMuon1, _Muon->pstats["Muon1"],i);
   }
   active_part = &goodParts;
   if( event < 10 || ( event < 100 && event % 10 == 0 ) ||
@@ -702,90 +708,90 @@ void Analyzer::updateMet(int syst) {
   }
 }
 
-///////////////////////////////////////////////
-////////removed for teh time being/////////////
-///////////////////////////////////////////////
+void Analyzer::treatMuons_asTaus(const Lepton& lep, const CUTS ePos, const PartStats& stats, int syst) {
+    if( ( distats["Run"].bfind("TreatMuon1AsTau") ) || ( distats["Run"].bfind("TreatMuon2AsTau")  ) ) {
 
-//New comment
+    _MET->addP4Syst(_MET->p4(),syst);
+    _MET->systdeltaMEx[syst]=0;
+    _MET->systdeltaMEy[syst]=0;
 
+    double Old_Pt = 0.;
+    double tmp_Pt = 0.;
+    double ETau_Pt = 0.;
+    double ETau_P = 0.;
+    double ETau_Eta = 0.;
+    double ETau_Theta = 0.;
+    double ETau_Phi = 0.;
+    double ETau_Energy = 0.;
+    double ETau_mass = 1.77699;
+    double Nu_Phi = 0.;
+    TLorentzVector Emu_Tau;
+    vector<double> DeltaPx;
+    vector<double> DeltaPy;
+    vector<int> Cut;
+    double id = 0.;
+    double match = 0.;
+    int bin = 0;
 
-// void Analyzer::treatMuons_Met(string syst) {
+    for(vec_iter iter=active_part->at(ePos)->begin(); iter!=active_part->at(ePos)->end(); iter++){
 
-//   //syst not implemented for muon as tau or neutrino yet
-//   if( syst!="orig" or !( distats["Run"].bfind("TreatMuonsAsNeutrinos") || distats["Run"].bfind("TreatMuonsAsTaus")) ){
-//     return;
-//   }
+      Old_Pt = tmp_Pt = lep.p4(*iter).Pt();
+      id=match=0.;
 
-//   //  Neutrino update before calculation
-//   _MET->addP4Syst(_MET->p4(),"muMET");
-//   _MET->systdeltaMEx["muMET"]=0;
-//   _MET->systdeltaMEy["muMET"]=0;
-
-//   if(distats["Run"].bfind("TreatMuonsAsNeutrinos")) {
-//     for(auto it : *active_part->at(CUTS::eRMuon1)) {
-//       if(find(active_part->at(CUTS::eRMuon2)->begin(), active_part->at(CUTS::eRMuon2)->end(), it) != active_part->at(CUTS::eRMuon2)->end() ) continue;
-//       _MET->systdeltaMEx["muMET"] += _Muon->p4(it).Px();
-//       _MET->systdeltaMEy["muMET"] += _Muon->p4(it).Py();
-//     }
-//     for(auto it : *active_part->at(CUTS::eRMuon2)) {
-//       _MET->systdeltaMEx["muMET"] += _Muon->p4(it).Px();
-//       _MET->systdeltaMEy["muMET"] += _Muon->p4(it).Py();
-//     }
-//   }
-//   // else if(distats["Run"].bmap.at("TreatMuonsAsTaus")) {
-
-//   //   if(active_part->at(CUTS::eRMuon1)->size() == 1) {
-
-//   //     int muon = (int)active_part->at(CUTS::eRMuon1)->at(0);
-
-//   //     double rand1 = 1;//Tau_HFrac->GetRandom();
-//   //     double rand2 = 0;//Tau_Resol->GetRandom();
-
-//   //     double ETau_Pt = _Muon->p4(muon).Pt()*rand1*(rand2+1.0);
-//   //     double ETau_Eta = _Muon->p4(muon).Eta();
-//   //     double ETau_Phi=normPhi(_Muon->p4(muon).Phi());//+DeltaNu_Phi->GetRandom());
-//   //     double ETau_Energy = 0.;
+      if( (tmp_Pt > 10.) && (tmp_Pt <= 20.) ) ETau_Pt = tmp_Pt*double(GenTauFractionR1->GetRandom());
+      else if( (tmp_Pt > 20.) && (tmp_Pt <= 30.) ) ETau_Pt = tmp_Pt*double(GenTauFractionR2->GetRandom());
+      else if( (tmp_Pt > 30.) && (tmp_Pt <= 50.) ) ETau_Pt = tmp_Pt*double(GenTauFractionR3->GetRandom());
+      else if( (tmp_Pt > 50.) && (tmp_Pt <= 100.) ) ETau_Pt = tmp_Pt*double(GenTauFractionR4->GetRandom());
+      else if( (tmp_Pt > 100.) && (tmp_Pt <= 1E+6) ) ETau_Pt = tmp_Pt*double(GenTauFractionR5->GetRandom());
 
 
-//   //     // double theta = 2.0*TMath::ATan2(1.0,TMath::Exp(_Muon->p4(muon).Eta()));
-//   //     // double sin_theta = TMath::Sin(theta);
-//   //     // double P_tau = ETau_Pt/sin_theta;
+      if(ETau_Pt == 0.) bin = 1;
+      else bin = int(0.1*ETau_Pt)+1;
 
-//   //     // //ETau_Energy = sqrt(pow(P_tau, 2) + pow(1.77699, 2));
-//   //     // ETau_Energy = sqrt( pow(1.77699, 2) + pow(ETau_Pt, 2) + pow(_Muon->p4(muon).Pz(), 2));
+      id = id_effi->GetBinContent(bin);
+      match = match_effi->GetBinContent(bin);
 
-//   //     /*if(ETau_Pt <= 15.0){
-//   //       while(ETau_Pt<=15.0){
-//   //       rand1 = Tau_HFrac->GetRandom();
-//   //       rand2 = Tau_Resol->GetRandom();
-//   //       ETau_Pt = _Muon->p4(muon).Pt()*rand1*(rand2+1.0);
-//   //       ENu_Pt = _Muon->p4(muon).Pt()-ETau_Pt;
-//   //       }
-//   //     }
-//   //     */
+      if((id > 0.) && (match > 0.)) ETau_Pt *= id*match;
 
-//   //     TLorentzVector Emu_Tau;
-//   //     Emu_Tau.SetPtEtaPhiE(ETau_Pt, ETau_Eta, ETau_Phi, ETau_Energy);
-//   //     _Muon->cur_P->clear();
+      ETau_Eta = tau_eta->GetRandom();
+      ETau_Theta = 2.0*TMath::ATan2(1.0,TMath::Exp(ETau_Eta));
+      //    ETau_P = ETau_Pt*TMath::CosH(ETau_Eta);
+      ETau_P = ETau_Pt/TMath::Sin(ETau_Theta);
+      ETau_Energy = sqrt(pow(ETau_P, 2) + pow(ETau_mass, 2));
 
-//   //     if (ETau_Pt >= _Muon->pstats["Muon1"].pmap.at("PtCut").first ){
-//   //       _Muon->cur_P->push_back(Emu_Tau);
-//   //       _MET->systdeltaMEy["muMET"] += (_Muon->p4(muon).Px()-Emu_Tau.Px());
-//   //       _MET->systdeltaMEy["muMET"] += (_Muon->p4(muon).Py()-Emu_Tau.Py());
+      Nu_Phi = _MET->p4().Phi();
+      Emu_Tau.SetPtEtaPhiE(ETau_Pt, ETau_Eta, ETau_Phi, ETau_Energy);
 
-//   //     }
-//   //   }
-//   //}
-//   // recalculate MET
-//   //  _MET->update("muMET");
+      bool passCuts = true;
+      if (Emu_Tau.Pt() < stats.pmap.at("EPtCut").first || Emu_Tau.Pt() > stats.pmap.at("EPtCut").second) continue;
+      ETau_Phi = normPhi(_MET->p4().Phi()+DeltaPhi->GetRandom());
+      Emu_Tau.SetPtEtaPhiE(ETau_Pt, ETau_Eta, ETau_Phi, ETau_Energy);
+      if(stats.bfind("DiscrByMetDphi")) passCuts = passCuts && passCutRange(absnormPhi(Emu_Tau.Phi() - _MET->phi()), stats.pmap.at("MetDphiCut"));
 
-//   /////MET CUTS
-//   active_part->at(CUTS::eMET)->clear();
-
-//   if(passCutRange(_MET->pt(), distats["Run"].pmap.at("MetCut"))) {
-//     active_part->at(CUTS::eMET)->push_back(1);
-//   }
-// }
+      if(passCuts){
+        DeltaPx.push_back((Old_Pt-lep.p4(*iter).Pt())*TMath::Cos(Nu_Phi));
+        DeltaPy.push_back((Old_Pt-lep.p4(*iter).Pt())*TMath::Sin(Nu_Phi));
+        //_MET->systdeltaMEx[syst]=(Old_Pt-lep.p4(*iter).Pt())*TMath::Cos(Nu_Phi);
+        //_MET->systdeltaMEy[syst]=(Old_Pt-lep.p4(*iter).Pt())*TMath::Sin(Nu_Phi);
+        lep.setP4(*iter,Emu_Tau);
+        Cut.push_back(*iter);
+      }        
+        
+    } // loop over leptons
+    active_part->at(ePos)->clear();
+    for (std::vector<int>::iterator it = Cut.begin(); it!=Cut.end();it++){
+      active_part->at(ePos)->push_back(*it);
+    }
+    for (std::vector<double>::iterator it = DeltaPx.begin(); it!=DeltaPx.end();it++){
+      _MET->systdeltaMEx[syst] += *it;
+    }
+    for (std::vector<double>::iterator it = DeltaPy.begin(); it!=DeltaPy.end();it++){
+      _MET->systdeltaMEy[syst] += *it;
+    }
+    active_part->at(CUTS::eMET)->clear();
+    updateMet(syst);
+  }//If muons is treated as tau
+}
 
 
 /////sets up other values needed for analysis that aren't particle specific
@@ -818,7 +824,11 @@ void Analyzer::setupGeneral() {
     initializeTrigger();
     infoFile->Close();
     version=1;
-  }else{
+  }
+
+else{
+
+
     SetBranch("Trigger_names", Trigger_names);
     SetBranch("Trigger_decision", Trigger_decision);
     BOOM->GetEntry(0);
@@ -827,7 +837,7 @@ void Analyzer::setupGeneral() {
         for(int k = 0; k < (int)Trigger_names->size(); k++) {
           if(Trigger_names->at(k).find(trigName[i]->at(j)) != string::npos) {
             // structure: i tigger 1 or 2 | j  name of trigger in trigger one or two
-            trigPlace[i]->at(j) = k;
+                 trigPlace[i]->at(j) = k;
             break;
           }
         }
@@ -835,13 +845,19 @@ void Analyzer::setupGeneral() {
     }
     BOOM->SetBranchStatus("Trigger_names", 0);
   }
+
+
+
 }
 
 
 //get the correct trigger position:
 void Analyzer::initializeTrigger() {
-  BAAM->SetBranchStatus("triggernames", 1);
-  BAAM->SetBranchAddress("triggernames", &Trigger_names);
+  //BAAM->SetBranchStatus("Trigger_names", 1);
+  //BAAM->SetBranchAddress("Trigger_names", &Trigger_names);
+
+   BAAM->SetBranchStatus("triggernames", 1);
+   BAAM->SetBranchAddress("triggernames", &Trigger_names);
 
   BAAM->GetEntry(0);
   for(int i = 0; i < nTrigReq; i++) {
@@ -854,6 +870,7 @@ void Analyzer::initializeTrigger() {
       }
     }
   }
+ // BAAM->SetBranchStatus("Trigger_names", 0);
   BAAM->SetBranchStatus("triggernames", 0);
 }
 
@@ -1207,16 +1224,28 @@ void Analyzer::getGoodRecoLeptons(const Lepton& lep, const CUTS ePos, const CUTS
         passCuts = passCuts && lep.get_Iso(i, firstIso, secondIso);
         //if( lep.type == PType::Tau ) passCuts = passCuts && lep.reject_Iso(i, firstIso, secondIso);
       }
+      else if(cut == "FailByIsolation") {
+        double firstIso = (stats.pmap.find("IsoSumPtCutValue") != stats.pmap.end()) ? stats.pmap.at("IsoSumPtCutValue").first : ival(ePos) - ival(CUTS::eRTau1) + 1;
+        double secondIso = (stats.pmap.find("IsoSumPtCutValue") != stats.pmap.end()) ? stats.pmap.at("IsoSumPtCutValue").second : 0;
+        passCuts = passCuts && !lep.get_Iso(i, firstIso, secondIso);
+
+      }
+      else if(cut == "DoDiscrByRejection" && lep.type == PType::Tau){
+        double firstIso = (stats.pmap.find("IsoSumPtCutValue") != stats.pmap.end()) ? stats.pmap.at("IsoSumPtCutValue").first : ival(ePos) - ival(CUTS::eRTau1) + 1;
+        double secondIso = (stats.pmap.find("IsoSumPtCutValue") != stats.pmap.end()) ? stats.pmap.at("IsoSumPtCutValue").second : 0;
+        passCuts = passCuts && lep.reject_Iso(i, firstIso, secondIso);
+      }
 
       else if(cut == "DiscrIfIsZdecay" && lep.type != PType::Tau ) passCuts = passCuts && isZdecay(lvec, lep);
-      else if(cut == "DiscrByCosDphiPtAndMet") passCuts = passCuts && passCutRange(cos(absnormPhi(lvec.Phi() - _MET->phi())), stats.pmap.at("CosDphiPtAndMetCut"));
       else if(cut == "DiscrByMetDphi") passCuts = passCuts && passCutRange(absnormPhi(lvec.Phi() - _MET->phi()), stats.pmap.at("MetDphiCut"));
       else if(cut == "DiscrByMetMt") passCuts = passCuts && passCutRange(calculateLeptonMetMt(lvec), stats.pmap.at("MetMtCut"));
       /////muon cuts
       else if(lep.type == PType::Muon){
         if(cut == "DoDiscrByTightID") passCuts = passCuts && _Muon->tight->at(i);
+        if(cut == "DoDiscrByMediumID") passCuts = passCuts && _Muon->medium->at(i);
         else if(cut == "DoDiscrBySoftID") passCuts = passCuts && _Muon->soft->at(i);
-else if(cut == "DoDiscrByTrackDz") passCuts = passCuts && (abs(_Muon->dz_pv->at(i)) <= stats.dmap.at("TrackDzCut"));
+        else if(cut == "DiscrByCharge") passCuts = passCuts && _Muon->charge(i) == stats.dmap.at("Charge");
+        else if(cut == "DoDiscrByTrackDz") passCuts = passCuts && (abs(_Muon->dz_pv->at(i)) <= stats.dmap.at("TrackDzCut"));
         else if(cut == "DoDiscrByTrackDxy") passCuts = passCuts && (abs(_Muon->dxy_pv->at(i)) <= stats.dmap.at("TrackDxyCut"));
 
       }
@@ -1245,14 +1274,14 @@ else if(cut == "DoDiscrByTrackDz") passCuts = passCuts && (abs(_Muon->dz_pv->at(
           passCuts = passCuts && (stats.smap.at("ProngType").find("hps") == string::npos || _Tau->decayModeFindingNewDMs->at(i) != 0);
           passCuts = passCuts && passProng(stats.smap.at("ProngType"), _Tau->nProngs->at(i));
         }
-
+/*
         else if(cut == "DoRejectIsolationWP"){
           double firstIso = (stats.pmap.find("IsoSumPtCutValue") != stats.pmap.end()) ? stats.pmap.at("IsoSumPtCutValue").first : ival(ePos) - ival(CUTS::eRTau1) + 1;
           double secondIso = (stats.pmap.find("IsoSumPtCutValue") != stats.pmap.end()) ? stats.pmap.at("IsoSumPtCutValue").second : 0;
           passCuts = passCuts && _Tau->reject_Iso(i, firstIso, secondIso);
           //      cout << "aqui pasa Tight " << endl;
         }
-
+*/
         else if(cut == "decayModeFindingNewDMs") passCuts = passCuts && _Tau->decayModeFindingNewDMs->at(i) != 0;
         else if(cut == "decayModeFinding") passCuts = passCuts && _Tau->decayModeFinding->at(i) != 0;
               // ----anti-overlap requirements
@@ -1408,7 +1437,7 @@ void Analyzer::TriggerCuts(vector<int>& prevTrig, const vector<string>& trigvec,
   if(version==1){
     for(size_t i = 0; i < trigvec.size(); i++) {
       for(size_t j =0; j<Trigger_decisionV1->size();  j++){
-        //cout<<"i:  "<<prevTrig.at(i)<<" j:  "<<j<<" dec(j):  "<<Trigger_decisionV1->at(j)<<endl;
+     //   cout<<"i:  "<<prevTrig.at(i)<<" j:  "<<j<<" dec(j):  "<<Trigger_decisionV1->at(j)<<endl;
         if(prevTrig.at(i)==Trigger_decisionV1->at(j)){
           active_part->at(ePos)->push_back(0);
           return;
@@ -1580,11 +1609,15 @@ void Analyzer::getGoodLeptonCombos(Lepton& lep1, Lepton& lep2, CUTS ePos1, CUTS 
           bool pass1 = passCutRange(CosDPhi1, stats.pmap.at("CosDphiPtAndMetCut1")); 
           bool pass2 = passCutRange(CosDPhi2, stats.pmap.at("CosDphiPtAndMetCut2")); 
           bool pass3 = passCutRange(Muon_mT, stats.pmap.at("Muon_mT")); 
+//	  bool pass4 = pass1 || (pass2 && pass3);
+//cout<<CosDPhi1<<" "<<pass1<<" "<<CosDPhi2<<" "<<pass2<<" "<<Muon_mT<<" "<<pass3<<" "<<pass4<<" "<<sqrt(2*part1.Pt()*_MET->pt()*(1-CosDPhi1))<<endl;
           passCuts = passCuts && (pass1 || (pass2 && pass3));
         }
 
+
         else cout << "cut: " << cut << " not listed" << endl;
       }
+
        if (stats.bfind("DiscrByOSLSType")){
           //   if it is 1 or 0 it will end up in the bool map!!
          if(stats.bfind("DiscrByOSLSType") && (lep1.charge(i1) * lep2.charge(i2) <= 0)) continue;
@@ -1710,6 +1743,28 @@ double Analyzer::getZBoostWeight(){
   return boostweigth;
 }
 
+double Analyzer::getTauWeight(){
+  double tauweight=1.;
+  double taupt = 0.;
+  if(active_part->at(CUTS::eRTau1)->size() == 1){
+  taupt = _Tau->pt(active_part->at(CUTS::eRTau1)->at(0));
+
+  if(taupt > 20. && taupt <= 22.) tauweight = 0.323;
+  else if(taupt > 22. && taupt <= 24.) tauweight = 0.450;
+  else if(taupt > 24. && taupt <= 26.) tauweight = 0.429;
+  else if(taupt > 26. && taupt <= 28.) tauweight = 0.288;
+  else if(taupt > 28. && taupt <= 30.) tauweight = 0.210;
+  else if(taupt > 32. && taupt <= 34.) tauweight = 0.241;
+  else if(taupt > 34. && taupt <= 36.) tauweight = 0.434;
+  else if(taupt > 36. && taupt <= 38.) tauweight = 0.069;
+  else if(taupt > 38. && taupt <= 40.) tauweight = 0.070;
+  else {tauweight = 1.;}
+  }
+  cout << tauweight << endl;
+  return tauweight;
+}
+
+
 
 ////Grabs a list of the groups of histograms to be filled and asked Fill_folder to fill up the histograms
 void Analyzer::fill_histogram() {
@@ -1727,8 +1782,13 @@ void Analyzer::fill_histogram() {
 
     if(distats["Run"].bfind("ApplyZBoostSF") && isVSample){
       wgt *= getZBoostWeight();
+    if(distats["Run"].bfind("ApplyTauSF") && isVSample){
+      wgt *= getTauWeight();
     }
-  }else  wgt=1.;
+  }else{
+          wgt=1.;
+          if(distats["Run"].bfind("ApplyTauSF")) wgt *= getTauWeight();
+        }
   //backup current weight
   backup_wgt=wgt;
 
@@ -1890,6 +1950,7 @@ void Analyzer::fill_Folder(string group, const int max, Histogramer &ihisto, boo
       }
       if(part->type != PType::Jet) {
         histAddVal(calculateLeptonMetMt(part->p4(it)), "MetMt");
+      histAddVal2(part->p4(it).Pt(),calculateLeptonMetMt(part->p4(it)),"MetMt_Pt");
       }
       if(part->type == PType::FatJet ) {
         histAddVal(_FatJet->PrunedMass->at(it), "PrunedMass");
@@ -2146,6 +2207,68 @@ void Analyzer::initializePileupInfo(string MCHisto, string DataHisto, string Dat
 
 }
 
+
+void Analyzer::initializeTau(string Histo, string HTFolder){
+
+  if(HTFolder == "") HTFolder = "NoWJets";
+
+  HTFolder += "/";
+  // cout << HTFolder << endl;
+
+  TFile *file3 = new TFile((PUSPACE+Histo).c_str());
+  TH1* h1 = static_cast<TH1*>(file3->Get((HTFolder+"GenTauFractionR1").c_str()));
+  if(!h1) {throw std::runtime_error("failed to extract histogram");}
+  TH1* h2 = static_cast<TH1*>(file3->Get((HTFolder+"GenTauFractionR2").c_str()));
+  if(!h2) {throw std::runtime_error("failed to extract histogram");}
+  TH1* h3 = static_cast<TH1*>(file3->Get((HTFolder+"GenTauFractionR3").c_str()));
+  if(!h3) {throw std::runtime_error("failed to extract histogram");}
+  TH1* h4 = static_cast<TH1*>(file3->Get((HTFolder+"GenTauFractionR4").c_str()));
+  if(!h4) {throw std::runtime_error("failed to extract histogram");}
+  TH1* h5 = static_cast<TH1*>(file3->Get((HTFolder+"GenTauFractionR5").c_str()));
+  if(!h5) {throw std::runtime_error("failed to extract histogram");}
+  TH1* h6 = static_cast<TH1*>(file3->Get((HTFolder+"GenTauIDRecoPt").c_str()));
+  if(!h6) {throw std::runtime_error("failed to extract histogram");}
+  TH1* h7 = static_cast<TH1*>(file3->Get((HTFolder+"GenTauMatchedPt").c_str()));
+  if(!h7) {throw std::runtime_error("failed to extract histogram");}
+  TH1* h8 = static_cast<TH1*>(file3->Get((HTFolder+"Tau1Eta").c_str()));
+  if(!h8) {throw std::runtime_error("failed to extract histogram");}
+  TH1* h9 = static_cast<TH1*>(file3->Get("DeltaPhi/Tau1DphiMet"));
+  //TH1* h9 = static_cast<TH1*>(file3->Get((HTFolder+"Tau1DphiMet").c_str()));
+  if(!h9) {throw std::runtime_error("failed to extract histogram");}
+
+
+  for(int bin=0; bin<=(h1->GetXaxis()->GetNbins() + 1); bin++) {
+    GenTauFractionR1->SetBinContent(bin,h1->GetBinContent(bin));
+  }
+  for(int bin=0; bin<=(h2->GetXaxis()->GetNbins() + 1); bin++) {
+    GenTauFractionR2->SetBinContent(bin,h2->GetBinContent(bin));
+  }
+  for(int bin=0; bin<=(h3->GetXaxis()->GetNbins() + 1); bin++) {
+    GenTauFractionR3->SetBinContent(bin,h3->GetBinContent(bin));
+  }
+  for(int bin=0; bin<=(h4->GetXaxis()->GetNbins() + 1); bin++) {
+    GenTauFractionR4->SetBinContent(bin,h4->GetBinContent(bin));
+  }
+  for(int bin=0; bin<=(h5->GetXaxis()->GetNbins() + 1); bin++) {
+    GenTauFractionR5->SetBinContent(bin,h5->GetBinContent(bin));
+  }
+  for(int bin=0; bin<=(h6->GetXaxis()->GetNbins() + 1); bin++) {
+    id_effi->SetBinContent(bin,h6->GetBinContent(bin));
+  }
+  for(int bin=0; bin<=(h7->GetXaxis()->GetNbins() + 1); bin++) {
+    match_effi->SetBinContent(bin,h7->GetBinContent(bin));
+  }
+  for(int bin=0; bin<=(h8->GetXaxis()->GetNbins() + 1); bin++) {
+    tau_eta->SetBinContent(bin,h8->GetBinContent(bin));
+  }
+  for(int bin=0; bin<=(h9->GetXaxis()->GetNbins() + 1); bin++) {
+    DeltaPhi->SetBinContent(bin,h9->GetBinContent(bin));
+  }
+
+  file3->Close();
+
+}
+
 ///Normalizes phi to be between -PI and PI
 double normPhi(double phi) {
   static double const TWO_PI = TMath::Pi() * 2;
@@ -2159,4 +2282,3 @@ double normPhi(double phi) {
 double absnormPhi(double phi) {
   return abs(normPhi(phi));
 }
-
