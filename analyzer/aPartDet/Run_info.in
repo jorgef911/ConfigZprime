@@ -1,0 +1,47 @@
+###################################
+                Run
+####################################
+
+CalculatePUSystematics false
+DataHistos PileUpReweighting2016.root
+MCHistos mc2016_pileup_Dec2018reReco.root
+DataPUHistName pileup
+MCPUHistName pileup
+
+ApplyTauIDSF false
+UsePileUpWeight false
+ApplyZBoostSF false
+ApplyPreFiring false
+
+isData true
+ApplyGenWeight  false
+
+///------Triggers-----///
+
+Trigger1FirstRequirement HLT_Ele27_WPTight_Gsf 
+Trigger1SecondRequirement HLT_Ele27_WPTight_Gsf
+
+Trigger2FirstRequirement HLT_Ele27_WPTight_Gsf
+Trigger2SecondRequirement HLT_Ele27_WPTight_Gsf
+
+///---Treat Muon as Neutrino---///
+
+TreatMuonsAsNeutrinos 0
+TreatMuonsAsTaus 0
+
+///-----MET cuts------///
+
+MT2Mass 0.
+DiscrByMet true
+MetCut 50.0 10000.0
+
+DiscrByMHT false
+MhtCut 50.0
+DiscrByHT false
+HtCut 30.0
+
+JetPtForMhtAndHt 30.0        
+JetEtaForMhtAndHt 5.0        
+ApplyJetLooseIDforMhtAndHt true
+
+
