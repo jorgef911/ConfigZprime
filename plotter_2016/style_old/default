@@ -1,0 +1,125 @@
+// Plotter values
+
+PadRatio   3
+TopWSRatio  15  
+RebinLimit  0.3
+
+// style class set values
+
+OptStat  0 
+OptTitle  0
+OptDate 0
+OptLogx
+OptLogy
+
+LabelColor
+LabelOffset 0.007
+LabelFont 42
+LabelSize 0.035
+
+LegendBorderSize
+LegendFillColor
+LegendFont
+LegendTextSize
+LegoInnerR
+
+LineColor
+LineStyle
+LineWidth
+
+MarkerColor
+MarkerSize
+MarkerStyle
+
+Ndivisions
+NumberContours
+
+TextColor
+TextFont
+TextSize
+
+TickLength
+
+TitleAlign
+TitleBorderSize
+TitleColor
+TitleFillColor
+TitleOffset 0.9
+TitleFont 42
+TitleFontSize
+TitleH 0
+TitleSize 0.15
+TitleStyle
+TitleTextColor
+TitleW
+TitleX
+TitleXOffset
+TitleXSize
+TitleY
+TitleYOffset
+
+
+CanvasColor 0
+CanvasBorderMode 0
+CanvasBorderSize 1
+CanvasDefH
+CanvasDefW
+CanvasDefX
+CanvasDefY
+CanvasPreferGL
+
+DrawBorder
+EndErrorSize
+ErrorX
+
+FillColor
+FillStyle
+
+FrameBorderSize
+FrameFillColor
+FrameFillStyle
+FrameLineColor
+FrameLineStyle
+FrameLineWidth
+
+FuncColor  19
+FuncStyle   0
+FuncWidth   
+
+GridColor
+GridStyle
+GridWidth
+
+HatchesLineWidth
+HatchesSpacing
+
+HistFillColor
+HistFillStyle
+HistLineColor
+HistLineStyle
+HistLineWidth
+HistMinimumZero
+HistTopMargin
+
+IsReading
+
+PadBorderMode
+PadBorderSize
+PadBottomMargin
+PadColor
+
+PadBottomMargin 0.07
+PadTopMargin 0.08
+PadLeftMargin 0.08
+PadRightMargin 0.05
+PadGridX 0
+PadGridY 0
+PadTickX 1
+PadTickY 1
+ 
+FrameBorderMode 0
+
+AxisColor
+BarOffset
+
+

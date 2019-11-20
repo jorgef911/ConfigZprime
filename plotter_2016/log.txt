@@ -1,0 +1,5 @@
+\begin{tabular}{ | l | c | c | c | }
+\hline
+Process & allData & DY+Jets & W+Jets\\ \hline
+NMuon1Tau1Combinations & 5353.0 & 2193.2 $\pm$ 152.6 & 863.0 $\pm$ 161.8 \\ \hline
+\end{tabular}

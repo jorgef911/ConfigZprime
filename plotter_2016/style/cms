@@ -1,0 +1,40 @@
+PadRatio    3
+TopWSRatio  15  
+RebinLimit   0.5
+DivideBins  0
+BinLimit   9
+
+OptStat  0 
+OptTitle  0
+OptDate 0
+LabelOffset 0.007
+LabelFont 42
+LabelSize   0.035
+
+LegendBorderSize 0
+LegendFillColor
+LegendFont 42
+LegendTextSize 0.005
+
+TitleOffset 0.9
+TitleFont 42
+TitleSize 0.12
+
+CanvasColor 0
+CanvasBorderMode 0
+CanvasBorderSize 3
+
+FuncColor  19
+FuncStyle   0
+
+PadBottomMargin 0.1
+PadTopMargin 0.05
+PadLeftMargin 0.08
+PadRightMargin 0.05
+PadGridX 0
+PadGridY 0
+PadTickX 1
+PadTickY 1
+ 
+FrameBorderMode 0
+
