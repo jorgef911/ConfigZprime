@@ -1,0 +1,1 @@
+1681937238     root://cmseos.fnal.gov///store/user/ra2tau/July72017/ttHJetToTT_M130_13TeV_amcatnloFXFX_madspin_pythia8/crab_ttHJetToTT_M130_13TeV_amcatnloFXFX_madspin_pythia8/170829_132101/0000/OutTree_1.root

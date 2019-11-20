@@ -1,0 +1,1 @@
+5949951108        root://se1.accre.vanderbilt.edu//store//group/ra2tau/Sept152017-mini3/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4/crab_Sept152017-mini3_ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4_16_TrancheIV_v6-v1/170916_155749/0000/OutTree_1.root

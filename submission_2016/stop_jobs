@@ -1,0 +1,3 @@
+condor_rm -name lpcschedd1.fnal.gov -all
+condor_rm -name lpcschedd2.fnal.gov -all
+condor_rm -name lpcschedd3.fnal.gov -all

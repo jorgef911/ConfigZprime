@@ -1,0 +1,2 @@
+3756850500        root://se1.accre.vanderbilt.edu//store//group/ra2tau/Sept152017-mini3/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_UpPS/crab_Sept152017-mini3_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_UpPS_c_2016_TrancheIV_v6-v1/170916_153642/0000/OutTree_1.root
+472441990        root://se1.accre.vanderbilt.edu//store//group/ra2tau/Sept152017-mini3/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_UpPS/crab_Sept152017-mini3_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_UpPS_c_2016_TrancheIV_v6-v1/170916_153642/0000/OutTree_2.root

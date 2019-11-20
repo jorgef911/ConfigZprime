@@ -1,0 +1,4 @@
+3920900816     root://cmseos.fnal.gov///store/user/ra2tau/July72017/ST_s-channel_4f_InclusiveDecays_13TeV-amcatnlo-pythia8/crab_ST_s-channel_4f_InclusiveDecays_13TeV-amcatnlo/170824_204626/0000/OutTree_1.root
+5085539971     root://cmseos.fnal.gov///store/user/ra2tau/July72017/ST_s-channel_4f_InclusiveDecays_13TeV-amcatnlo-pythia8/crab_ST_s-channel_4f_InclusiveDecays_13TeV-amcatnlo/170824_204626/0000/OutTree_2.root
+3137899828     root://cmseos.fnal.gov///store/user/ra2tau/July72017/ST_s-channel_4f_InclusiveDecays_13TeV-amcatnlo-pythia8/crab_ST_s-channel_4f_InclusiveDecays_13TeV-amcatnlo/170824_204626/0000/OutTree_3.root
+3823696218     root://cmseos.fnal.gov///store/user/ra2tau/July72017/ST_s-channel_4f_InclusiveDecays_13TeV-amcatnlo-pythia8/crab_ST_s-channel_4f_InclusiveDecays_13TeV-amcatnlo/170824_204626/0000/OutTree_4.root

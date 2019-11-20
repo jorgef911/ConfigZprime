@@ -1,0 +1,2 @@
+5526120750        root://se1.accre.vanderbilt.edu//store//group/ra2tau/Sept152017-mini3/WWTo2L2Nu_13TeV-powheg/crab_Sept152017-mini3_WWTo2L2Nu_13TeV-powheg_AODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/170916_161110/0000/OutTree_1.root
+5522412591        root://se1.accre.vanderbilt.edu//store//group/ra2tau/Sept152017-mini3/WWTo2L2Nu_13TeV-powheg/crab_Sept152017-mini3_WWTo2L2Nu_13TeV-powheg_AODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/170916_161110/0000/OutTree_2.root

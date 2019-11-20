@@ -1,0 +1,1 @@
+3960765050        root://se1.accre.vanderbilt.edu//store//group/ra2tau/Sept152017-mini3/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_CUETP8M1Up/crab_Sept152017-mini3_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_CUETP8M1Up__TrancheIV_v6-v1/170916_153535/0000/OutTree_1.root

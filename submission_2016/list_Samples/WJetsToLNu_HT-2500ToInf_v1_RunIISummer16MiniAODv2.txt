@@ -1,0 +1,1 @@
+2724138580     root://cmseos.fnal.gov///store/user/ra2tau/jan2017tuple/WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/WJetsToLNu_HT-2500ToInf_v1_RunIISummer16MiniAODv2/170125_215241/0000/OutTree_1.root

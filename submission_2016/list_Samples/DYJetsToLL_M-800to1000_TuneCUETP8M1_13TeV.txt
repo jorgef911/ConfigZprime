@@ -1,0 +1,1 @@
+1348087797     root://cmseos.fnal.gov///store/user/ra2tau/July72017/DYJetsToLL_M-800to1000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-800to1000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/170709_040603/0000/OutTree_1.root

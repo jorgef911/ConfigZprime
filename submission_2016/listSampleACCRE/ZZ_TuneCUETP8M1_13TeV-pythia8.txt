@@ -1,0 +1,2 @@
+4188419885        root://se1.accre.vanderbilt.edu//store//group/ra2tau/Sept152017-mini3/ZZ_TuneCUETP8M1_13TeV-pythia8/crab_Sept152017-mini3_ZZ_TuneCUETP8M1_13TeV-pythia8_ond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/170916_161750/0000/OutTree_1.root
+4152472057        root://se1.accre.vanderbilt.edu//store//group/ra2tau/Sept152017-mini3/ZZ_TuneCUETP8M1_13TeV-pythia8/crab_Sept152017-mini3_ZZ_TuneCUETP8M1_13TeV-pythia8_UMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/170916_161813/0000/OutTree_1.root

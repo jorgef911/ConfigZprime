@@ -1,0 +1,1 @@
+./add_root_files2.py -i /eos/uscms/store/user/jfraga/run_2019_11_20_0_44/*MC/*.root

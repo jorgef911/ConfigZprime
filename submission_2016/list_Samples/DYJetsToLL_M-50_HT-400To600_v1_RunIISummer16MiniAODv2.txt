@@ -1,0 +1,2 @@
+4984644306     root://cmseos.fnal.gov///store/user/ra2tau/jan2017tuple/DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/DYJetsToLL_M-50_HT-400To600_v1_RunIISummer16MiniAODv2/170126_170535/0000/OutTree_1.root
+4624210357     root://cmseos.fnal.gov///store/user/ra2tau/jan2017tuple/DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/DYJetsToLL_M-50_HT-400To600_v1_RunIISummer16MiniAODv2/170126_170535/0000/OutTree_2.root

@@ -1,0 +1,3 @@
+940471554     root://cmseos.fnal.gov////store/user/jruizalv/EWKWPlus2Jets_WToLNu_M-50_13TeV-madgraph-pythia8/EWKWPlus2Jets_WToLNu_v1/170529_080003/0000/OutTree_1.root
+1641136155     root://cmseos.fnal.gov////store/user/jruizalv/EWKWPlus2Jets_WToLNu_M-50_13TeV-madgraph-pythia8/EWKWPlus2Jets_WToLNu_v1/170529_080003/0000/OutTree_2.root
+754252700     root://cmseos.fnal.gov////store/user/jruizalv/EWKWPlus2Jets_WToLNu_M-50_13TeV-madgraph-pythia8/EWKWPlus2Jets_WToLNu_v1/170529_080003/0000/OutTree_3.root

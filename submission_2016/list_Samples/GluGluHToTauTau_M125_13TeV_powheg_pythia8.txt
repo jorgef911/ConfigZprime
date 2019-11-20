@@ -1,0 +1,2 @@
+4034770693     root://cmseos.fnal.gov///store/user/ra2tau/July72017/GluGluHToTauTau_M125_13TeV_powheg_pythia8/crab_GluGluHToTauTau_M125_13TeV_powheg_pythia8/170829_131127/0000/OutTree_1.root
+3949531202     root://cmseos.fnal.gov///store/user/ra2tau/July72017/GluGluHToTauTau_M125_13TeV_powheg_pythia8/crab_GluGluHToTauTau_M125_13TeV_powheg_pythia8/170829_131127/0000/OutTree_2.root

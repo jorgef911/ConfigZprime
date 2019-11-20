@@ -1,0 +1,1 @@
+hadd alldata.root /eos/uscms/store/user/amsarkar/run_2019_10_19_16_23/SingleElectron_TeV__data_C/*.root
